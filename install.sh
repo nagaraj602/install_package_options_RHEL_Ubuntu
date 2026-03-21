@@ -97,14 +97,8 @@ case $choice in
 
     9)
         echo "Install make packages selected..."
-        cd
-        sudo yum install git -y > /dev/null 2>&1
-        rm -rf install_maven_RHEL_Ubuntu
-        git clone https://github.com/nagaraj602/install_maven_RHEL_Ubuntu.git > /dev/null 2>&1
-        cd install_maven_RHEL_Ubuntu || exit
-        bash maven.sh
-        cd ..
-        rm -rf install_maven_RHEL_Ubuntu
+        sudo yum install make -y
+        sudo dnf groupinstall "Development Tools" -y
         ;;
 
     *)

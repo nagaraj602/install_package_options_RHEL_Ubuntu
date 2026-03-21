@@ -87,18 +87,34 @@ case $choice in
         [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
         source ~/.bashrc
         nvm install --lts
+        echo "NodeJs installed"
         ;;
 
     8)
         echo "Install python pip packages selected..."
         python
         sudo yum install python-pip -y > /dev/null 2>&1
+        echo "Pip package installed"
         ;;
 
     9)
         echo "Install make packages selected..."
-        sudo yum install make -y
-        sudo dnf groupinstall "Development Tools" -y
+        distro=$(cat /etc/os-release | grep "^ID=" | cut -d "=" -f2 | sed 's/"//g')
+        if [ "$distro" = "rhel" ]; then
+            sudo yum update -y > /dev/null
+            sudo yum install make -y > /dev/null
+            sudo dnf groupinstall "Development Tools" -y > /dev/null
+            echo "Make package installed"
+        elif [ "$distro" = "ubuntu" ]; then
+            sudo apt-get update -y > /dev/null
+            sudo apt-get install make -y > /dev/null
+            sudo apt-get install build-essential -y > /dev/null
+            echo "Make package installed"
+        else
+            echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+            exit 1
+        fi
+
         ;;
 
     *)

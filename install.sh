@@ -28,6 +28,7 @@ while true; do
         case $choice in
             1)
                 echo "Exiting script..."
+                cd
                 exit 0
                 ;;
         

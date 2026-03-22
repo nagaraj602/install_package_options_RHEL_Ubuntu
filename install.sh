@@ -21,7 +21,7 @@ case $choice in
         ;;
 
     2)
-        echo "Install Tomcat selected..."
+        echo "Install Tomcat selected."
         cd
         sudo yum install git -y > /dev/null 2>&1
         rm -rf install_tomcat_RHEL_Ubuntu
@@ -33,7 +33,7 @@ case $choice in
         ;;
         
     3)
-        echo "Install Jenkins selected..."
+        echo "Install Jenkins selected."
         cd
         sudo yum install git -y > /dev/null 2>&1
         rm -rf install_jenkins_RHEL_Ubuntu
@@ -45,7 +45,7 @@ case $choice in
         ;;
 
     4)
-        echo "Install Maven selected..."
+        echo "Install Maven selected."
         cd
         sudo yum install git -y > /dev/null 2>&1
         rm -rf install_maven_RHEL_Ubuntu
@@ -57,7 +57,7 @@ case $choice in
         ;;
 
     5)
-        echo "Install htop selected..."
+        echo "Install htop selected."
         cd;
         sudo yum install git -y > /dev/null 2>&1;
         rm -rf install_htop_RHEL_Ubuntu
@@ -69,7 +69,7 @@ case $choice in
         ;;
 
     6)
-        echo "Install gradle selected..."
+        echo "Install gradle selected."
         cd
         sudo yum install git -y > /dev/null 2>&1
         rm -rf install_gradle_RHEL_Ubuntu
@@ -81,7 +81,7 @@ case $choice in
         ;;
 
     7)
-        echo "Install nodejs selected..."
+        echo "Install nodejs selected."
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash > /dev/null 2>&1
         export NVM_DIR="$HOME/.nvm"
         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -99,7 +99,7 @@ case $choice in
         ;;
 
     9)
-        echo "Install make packages selected..."
+        echo "Install make packages selected."
         distro=$(cat /etc/os-release | grep "^ID=" | cut -d "=" -f2 | sed 's/"//g')
         if [ "$distro" = "rhel" ]; then
             sudo yum update -y > /dev/null
@@ -119,7 +119,7 @@ case $choice in
         ;;
 
     10)
-        echo "Install MySQL selected..."
+        echo "Install MySQL selected."
     
         distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
     

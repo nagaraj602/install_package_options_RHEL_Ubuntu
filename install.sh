@@ -14,7 +14,7 @@ echo "11) Install Traceroute"
 echo "12) Install nslookup"
 echo
 
-read -p "Enter your choice [1-12]: " choice
+read -rp "Enter your choice [1-12]: " choice
 
 
 cleanup() {

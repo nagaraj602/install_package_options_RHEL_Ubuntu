@@ -190,7 +190,47 @@ case $choice in
             exit 1
         fi
         ;;
+
+    11) 
+        echo "Install Traceroute selected."
+        distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
     
+        if [ "$distro" = "rhel" ]; then
+            sudo dnf update -y > /dev/null 2>&1
+            sudo dnf install traceroute -y > /dev/null 2>&1
+            echo "Traceroute installed on $distro..."
+            echo "You can run as: traceroute <hostname/IP>"
+        elif [ "$distro" = "ubuntu" ]; then
+            sudo apt-get update -y > /dev/null 2>&1
+            sudo apt install traceroute -y > /dev/null 2>&1
+            echo "Traceroute installed on $distro..."
+            echo "You can run as: traceroute <hostname/IP>"
+        else
+            echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+            exit 1
+        fi
+        ;;
+
+    12)
+        echo "Install nslookup selected."
+        distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
+    
+        if [ "$distro" = "rhel" ]; then
+            sudo dnf update -y > /dev/null 2>&1
+            sudo dnf install bind-utils -y > /dev/null 2>&1
+            echo "nslookup installed on $distro..."
+            echo "You can run as: nslookup <hostname/IP/domain>"
+        elif [ "$distro" = "ubuntu" ]; then
+            sudo apt-get update -y > /dev/null 2>&1
+            sudo apt install dnsutils -y > /dev/null 2>&1
+            echo "nslookup installed on $distro..."
+            echo "You can run as: nslookup <hostname/IP/domain>"
+        else
+            echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+            exit 1
+        fi
+        ;;    
+        
     *)
         echo "Invalid option. Exiting."
         exit 1

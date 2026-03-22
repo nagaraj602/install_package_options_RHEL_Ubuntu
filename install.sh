@@ -125,24 +125,24 @@ case $choice in
     
         if [ "$distro" = "rhel" ]; then
             sudo dnf clean all > /dev/null 2>&1
+            sudo tee /etc/yum.repos.d/MariaDB.repo > /dev/null <<EOF
+        [mariadb]
+        name = MariaDB
+        baseurl = https://rpm.mariadb.org/10.11/rhel9-amd64
+        gpgkey=https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
+        gpgcheck=1
+        EOF
+        
             sudo dnf makecache > /dev/null 2>&1
-            sudo dnf install mariadb-server -y
-    
-            if ! rpm -q mariadb-server > /dev/null 2>&1; then
+            sudo dnf install MariaDB-server -y
+        
+            if ! rpm -q MariaDB-server > /dev/null 2>&1; then
                 echo "MariaDB installation failed"
                 exit 1
             fi
-    
-            if systemctl list-unit-files | grep -q mariadb; then
-                sudo systemctl start mariadb
-                sudo systemctl enable mariadb
-            elif systemctl list-unit-files | grep -q mysqld; then
-                sudo systemctl start mysqld
-                sudo systemctl enable mysqld
-            else
-                echo "Service not found after install"
-                exit 1
-            fi
+        
+            sudo systemctl start mariadb
+            sudo systemctl enable mariadb
     
         elif [ "$distro" = "ubuntu" ]; then
             sudo apt-get update -y > /dev/null 2>&1

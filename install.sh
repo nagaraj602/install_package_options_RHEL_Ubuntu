@@ -125,6 +125,7 @@ case $choice in
     
         if [ "$distro" = "rhel" ]; then
             sudo yum update -y > /dev/null 2>&1
+            sudo yum install -y https://dev.mysql.com/get/mysql80-community-release-el7-7.noarch.rpm > /dev/null 2>&1
             sudo yum install mysql-server -y > /dev/null 2>&1
             sudo systemctl start mysqld
             sudo systemctl enable mysqld

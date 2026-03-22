@@ -236,3 +236,8 @@ case $choice in
         exit 1
         ;;
 esac
+
+
+
+
+cd;cd install_package_options_RHEL_Ubuntu;bash install.sh

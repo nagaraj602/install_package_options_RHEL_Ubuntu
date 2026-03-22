@@ -26,7 +26,7 @@ case $choice in
     2)
         echo "Install Tomcat selected."
         cd
-        sudo yum install git -y > /dev/null 2>&1
+        sudo dnf install git -y > /dev/null 2>&1
         rm -rf install_tomcat_RHEL_Ubuntu
         git clone https://github.com/nagaraj602/install_tomcat_RHEL_Ubuntu.git > /dev/null 2>&1
         cd install_tomcat_RHEL_Ubuntu || exit
@@ -38,7 +38,7 @@ case $choice in
     3)
         echo "Install Jenkins selected."
         cd
-        sudo yum install git -y > /dev/null 2>&1
+        sudo dnf install git -y > /dev/null 2>&1
         rm -rf install_jenkins_RHEL_Ubuntu
         git clone https://github.com/nagaraj602/install_jenkins_RHEL_Ubuntu.git > /dev/null 2>&1
         cd install_jenkins_RHEL_Ubuntu || exit
@@ -50,7 +50,7 @@ case $choice in
     4)
         echo "Install Maven selected."
         cd
-        sudo yum install git -y > /dev/null 2>&1
+        sudo dnf install git -y > /dev/null 2>&1
         rm -rf install_maven_RHEL_Ubuntu
         git clone https://github.com/nagaraj602/install_maven_RHEL_Ubuntu.git > /dev/null 2>&1
         cd install_maven_RHEL_Ubuntu || exit
@@ -62,7 +62,7 @@ case $choice in
     5)
         echo "Install htop selected."
         cd;
-        sudo yum install git -y > /dev/null 2>&1;
+        sudo dnf install git -y > /dev/null 2>&1;
         rm -rf install_htop_RHEL_Ubuntu
         git clone https://github.com/nagaraj602/install_htop_RHEL_Ubuntu.git > /dev/null 2>&1;
         cd install_htop_RHEL_Ubuntu;
@@ -74,7 +74,7 @@ case $choice in
     6)
         echo "Install gradle selected."
         cd
-        sudo yum install git -y > /dev/null 2>&1
+        sudo dnf install git -y > /dev/null 2>&1
         rm -rf install_gradle_RHEL_Ubuntu
         git clone https://github.com/nagaraj602/install_gradle_RHEL_Ubuntu.git > /dev/null 2>&1
         cd install_gradle_RHEL_Ubuntu || exit
@@ -116,8 +116,8 @@ case $choice in
         echo "Install make packages selected."
         distro=$(cat /etc/os-release | grep "^ID=" | cut -d "=" -f2 | sed 's/"//g')
         if [ "$distro" = "rhel" ]; then
-            sudo yum update -y > /dev/null
-            sudo yum install make -y > /dev/null
+            sudo dnf update -y > /dev/null
+            sudo dnf install make -y > /dev/null
             sudo dnf groupinstall "Development Tools" -y > /dev/null
             echo "Make package installed"
         elif [ "$distro" = "ubuntu" ]; then

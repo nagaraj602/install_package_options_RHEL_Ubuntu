@@ -18,6 +18,7 @@ read -rp "Enter your choice [1-12]: " choice
 
 
 cleanup() {
+    cd
     find "$HOME" -maxdepth 1 -type d -name "install_*_RHEL_Ubuntu" -exec rm -rf {} +
 }
 trap cleanup EXIT INT TERM

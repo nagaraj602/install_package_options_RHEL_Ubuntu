@@ -9,9 +9,10 @@ echo "6) Install gradle"
 echo "7) Install nodejs"
 echo "8) Install python pip packages"
 echo "9) Install make packages"
+echo "10) Install MySQL"
 echo
 
-read -p "Enter your choice [1-6]: " choice
+read -p "Enter your choice [1-10]: " choice
 
 case $choice in
     1)
@@ -117,6 +118,29 @@ case $choice in
 
         ;;
 
+    10)
+        echo "Install MySQL selected..."
+    
+        distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
+    
+        if [ "$distro" = "rhel" ]; then
+            sudo yum update -y > /dev/null 2>&1
+            sudo yum install mysql-server -y > /dev/null 2>&1
+            sudo systemctl start mysqld
+            sudo systemctl enable mysqld
+    
+        elif [ "$distro" = "ubuntu" ]; then
+            sudo apt-get update -y > /dev/null 2>&1
+            sudo apt-get install mysql-server -y > /dev/null 2>&1
+            sudo systemctl start mysql
+            sudo systemctl enable mysql
+    
+        else
+            echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+            exit 1
+        fi
+        ;;
+    
     *)
         echo "Invalid option. Exiting."
         exit 1

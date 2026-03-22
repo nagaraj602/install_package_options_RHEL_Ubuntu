@@ -124,31 +124,53 @@ case $choice in
         distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
     
         if [ "$distro" = "rhel" ]; then
-            sudo dnf clean all > /dev/null 2>&1
-            sudo tee /etc/yum.repos.d/MariaDB.repo > /dev/null <<EOF
-        [mariadb]
-        name = MariaDB
-        baseurl = https://rpm.mariadb.org/10.11/rhel9-amd64
-        gpgkey=https://rpm.mariadb.org/RPM-GPG-KEY-MariaDB
-        gpgcheck=1
-        EOF
-        
-            sudo dnf makecache > /dev/null 2>&1
-            sudo dnf install MariaDB-server -y
-        
-            if ! rpm -q MariaDB-server > /dev/null 2>&1; then
-                echo "MariaDB installation failed"
-                exit 1
-            fi
-        
-            sudo systemctl start mariadb
-            sudo systemctl enable mariadb
-    
+            echo
+            echo
+            echo "Installing MySQL on $distro..."
+            sudo dnf update -y > /dev/null 2>&1
+            sudo dnf install -y https://dev.mysql.com/get/mysql84-community-release-el10-2.noarch.rpm > /dev/null 2>&1
+            sudo dnf install -y mysql-community-server > /dev/null 2>&1
+            sudo systemctl daemon-reexec
+            sudo systemctl enable mysqld
+            sudo systemctl start mysqld
+            sudo grep 'temporary password' /var/log/mysqld.log
+            echo
+            echo "############################################"
+            echo -e "Run below command to finish installation:\n"
+            echo -e " --> sudo mysql_secure_installation"
+            echo 
+            echo -e "\t Set:\n
+            * Root password\n
+            * Remove anonymous users → YES \n
+            * Disallow root remote login → YES \n
+            * Remove test DB → YES \n"
+            echo 
+            echo "To login to mysql, run this command:"
+            echo -e " --> mysql -u root -p \n \n"
+            
+                
         elif [ "$distro" = "ubuntu" ]; then
+            echo
+            echo
+            echo "Installing MySQL on $distro..."
             sudo apt-get update -y > /dev/null 2>&1
-            sudo apt-get install mysql-server -y > /dev/null 2>&1
-            sudo systemctl start mysql
+            sudo apt install -y mysql-server
             sudo systemctl enable mysql
+            sudo systemctl start mysql
+            sudo grep 'temporary password' /var/log/mysqld.log
+            echo
+            echo "############################################"
+            echo -e "Run below command to finish installation:\n"
+            echo -e " --> sudo mysql_secure_installation"
+            echo 
+            echo -e "\t Set:\n
+            * Root password\n
+            * Remove anonymous users → YES \n
+            * Disallow root remote login → YES \n
+            * Remove test DB → YES \n"
+            echo 
+            echo "To login to mysql, run this command:"
+            echo -e " --> mysql -u root -p \n \n"
     
         else
             echo "Unsupported Distribution - Only RHEL and Ubuntu supported."

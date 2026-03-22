@@ -124,10 +124,30 @@ case $choice in
         distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
     
         if [ "$distro" = "rhel" ]; then
-            sudo yum install mariadb-server -y > /dev/null 2>&1
-            sudo systemctl start mariadb
-            sudo systemctl enable mariadb
-    
+            sudo dnf clean all > /dev/null 2>&1
+            sudo dnf makecache > /dev/null 2>&1
+        
+            # Install MariaDB (no module assumption)
+            sudo dnf install mariadb-server -y
+        
+            # Check if install succeeded
+            if ! rpm -q mariadb-server > /dev/null 2>&1; then
+                echo "MariaDB installation failed"
+                exit 1
+            fi
+        
+            # Start service (handle different service names)
+            if systemctl list-unit-files | grep -q mariadb; then
+                sudo systemctl start mariadb
+                sudo systemctl enable mariadb
+            elif systemctl list-unit-files | grep -q mysqld; then
+                sudo systemctl start mysqld
+                sudo systemctl enable mysqld
+            else
+                echo "Service not found after install"
+                exit 1
+            fi
+            
         elif [ "$distro" = "ubuntu" ]; then
             sudo apt-get update -y > /dev/null 2>&1
             sudo apt-get install mysql-server -y > /dev/null 2>&1

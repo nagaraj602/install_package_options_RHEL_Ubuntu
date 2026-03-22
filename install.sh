@@ -124,11 +124,9 @@ case $choice in
         distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
     
         if [ "$distro" = "rhel" ]; then
-            sudo yum update -y > /dev/null 2>&1
-            sudo yum install -y https://dev.mysql.com/get/mysql80-community-release-el7-7.noarch.rpm > /dev/null 2>&1
-            sudo yum install mysql-server -y > /dev/null 2>&1
-            sudo systemctl start mysqld
-            sudo systemctl enable mysqld
+            sudo yum install mariadb-server -y > /dev/null 2>&1
+            sudo systemctl start mariadb
+            sudo systemctl enable mariadb
     
         elif [ "$distro" = "ubuntu" ]; then
             sudo apt-get update -y > /dev/null 2>&1

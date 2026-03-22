@@ -19,6 +19,7 @@ read -p "Enter your choice [1-12]: " choice
 case $choice in
     1)
         echo "Exiting script..."
+        find "$HOME" -maxdepth 1 -type d -name "install_*_RHEL_Ubuntu" -exec rm -rf {} +
         exit 0
         ;;
 

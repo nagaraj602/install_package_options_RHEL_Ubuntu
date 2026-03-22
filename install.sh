@@ -127,10 +127,12 @@ case $choice in
             sudo dnf clean all > /dev/null 2>&1
             sudo dnf makecache > /dev/null 2>&1
             sudo dnf install mariadb-server -y
+    
             if ! rpm -q mariadb-server > /dev/null 2>&1; then
                 echo "MariaDB installation failed"
                 exit 1
             fi
+    
             if systemctl list-unit-files | grep -q mariadb; then
                 sudo systemctl start mariadb
                 sudo systemctl enable mariadb
@@ -141,7 +143,7 @@ case $choice in
                 echo "Service not found after install"
                 exit 1
             fi
-            
+    
         elif [ "$distro" = "ubuntu" ]; then
             sudo apt-get update -y > /dev/null 2>&1
             sudo apt-get install mysql-server -y > /dev/null 2>&1

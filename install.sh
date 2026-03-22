@@ -10,9 +10,11 @@ echo "7) Install nodejs"
 echo "8) Install python pip packages"
 echo "9) Install make packages"
 echo "10) Install MySQL"
+echo "11) Install Traceroute"
+echo "12) Install nslookup"
 echo
 
-read -p "Enter your choice [1-10]: " choice
+read -p "Enter your choice [1-12]: " choice
 
 case $choice in
     1)
@@ -92,10 +94,21 @@ case $choice in
         ;;
 
     8)
-        echo "Install python pip packages selected..."
+        echo "Install python pip packages selected."
         python
-        sudo yum install python-pip -y > /dev/null 2>&1
-        echo "Pip package installed"
+        distro=$(cat /etc/os-release | grep "^ID=" | cut -d "=" -f2 | sed 's/"//g')
+        if [ "$distro" = "rhel" ]; then
+            sudo dnf update -y > /dev/null 2>&1
+            sudo dnf install python3-pip -y > /dev/null 2>&1
+            echo "Pip package installed on $distro"
+        elif [ "$distro" = "ubuntu" ]; then
+            sudo apt-get update -y > /dev/null 2>&1
+            sudo apt-get install python3-pip -y > /dev/null 2>&1
+            echo "Pip package installed on $distro"
+        else
+            echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+            exit 1    
+        fi            
         ;;
 
     9)

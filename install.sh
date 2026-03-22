@@ -156,8 +156,8 @@ case $choice in
             echo "Installing MySQL on $distro..."
             sudo apt-get update -y > /dev/null 2>&1
             sudo apt install -y mysql-server > /dev/null 2>&1
-            sudo systemctl enable mysql
-            sudo systemctl start mysql
+            sudo systemctl enable mysql > /dev/null 2>&1
+            sudo systemctl start mysql > /dev/null 2>&1
             echo
             echo "############################################"
             echo -e "Run below command to finish installation:\n"

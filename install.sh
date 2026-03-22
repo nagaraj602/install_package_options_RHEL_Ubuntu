@@ -24,9 +24,8 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 
-while true; do
 
-        case $choice in
+case $choice in
             1)
                 echo "Exiting script..."
                 cd
@@ -248,5 +247,3 @@ while true; do
                 ;;
         esac
 
-
-done

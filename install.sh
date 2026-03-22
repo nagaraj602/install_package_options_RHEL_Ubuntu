@@ -147,7 +147,7 @@ case $choice in
             * Remove test DB → YES \n"
             echo 
             echo "To login to mysql, run this command:"
-            echo -e " --> mysql -u root -p \n \n"
+            echo -e "\n --> mysql -u root -p \n \n"
             
                 
         elif [ "$distro" = "ubuntu" ]; then
@@ -170,7 +170,7 @@ case $choice in
             * Remove test DB → YES \n"
             echo 
             echo "To login to mysql, run this command:"
-            echo -e " --> mysql -u root -p \n \n"
+            echo -e "\n --> mysql -u root -p \n \n"
     
         else
             echo "Unsupported Distribution - Only RHEL and Ubuntu supported."

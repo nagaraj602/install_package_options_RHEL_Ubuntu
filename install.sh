@@ -133,7 +133,8 @@ case $choice in
             sudo systemctl daemon-reexec
             sudo systemctl enable mysqld
             sudo systemctl start mysqld
-            sudo grep 'temporary password' /var/log/mysqld.log
+            echo
+            sudo grep -oP 'A temporary password.*' /var/log/mysqld.log
             echo
             echo "############################################"
             echo -e "Run below command to finish installation:\n"
@@ -154,10 +155,9 @@ case $choice in
             echo
             echo "Installing MySQL on $distro..."
             sudo apt-get update -y > /dev/null 2>&1
-            sudo apt install -y mysql-server
+            sudo apt install -y mysql-server > /dev/null 2>&1
             sudo systemctl enable mysql
             sudo systemctl start mysql
-            sudo grep 'temporary password' /var/log/mysqld.log
             echo
             echo "############################################"
             echo -e "Run below command to finish installation:\n"

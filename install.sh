@@ -96,12 +96,12 @@ case $choice in
         
             7)
                 echo "Install nodejs selected."
-                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash > /dev/null 2>&1
+                curl -s -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash > /dev/null 2>&1
                 export NVM_DIR="$HOME/.nvm"
                 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
                 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
                 source ~/.bashrc
-                nvm install --lts
+                nvm install --lts > /dev/null 2>&1
                 echo "NodeJs installed"
                 ;;
         

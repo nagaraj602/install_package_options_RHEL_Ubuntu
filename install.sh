@@ -107,7 +107,7 @@ case $choice in
         
             8)
                 echo "Install python pip packages selected."
-                python --version
+                python3 --version
                 distro=$(cat /etc/os-release | grep "^ID=" | cut -d "=" -f2 | sed 's/"//g')
                 if [ "$distro" = "rhel" ]; then
                     sudo dnf update -y > /dev/null 2>&1

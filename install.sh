@@ -112,11 +112,11 @@ case $choice in
                 if [ "$distro" = "rhel" ]; then
                     sudo dnf update -y > /dev/null 2>&1
                     sudo dnf install python3-pip -y > /dev/null 2>&1
-                    echo "Pip package installed on $distro"
+                    echo "Pip package installed on $distro."
                 elif [ "$distro" = "ubuntu" ]; then
                     sudo apt-get update -y > /dev/null 2>&1
                     sudo apt-get install python3-pip -y > /dev/null 2>&1
-                    echo "Pip package installed on $distro"
+                    echo "Pip package installed on $distro."
                 else
                     echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
                     exit 1    

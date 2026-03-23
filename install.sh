@@ -70,6 +70,8 @@ case $choice in
         
             5)
                 echo "Install htop selected."
+                echo
+                echo "Installing htop on $distro..."
                 cd;
                 sudo dnf install git -y > /dev/null 2>&1;
                 rm -rf install_htop_RHEL_Ubuntu

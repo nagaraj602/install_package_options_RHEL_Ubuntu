@@ -15,7 +15,7 @@ echo "12) Install nslookup"
 echo "13) Install Java 25"
 echo
 
-read -rp "Enter your choice [1-12]: " choice
+read -rp "Enter your choice [1-13]: " choice
 
 
 cleanup() {

@@ -12,6 +12,7 @@ echo "9) Install make packages"
 echo "10) Install MySQL"
 echo "11) Install Traceroute"
 echo "12) Install nslookup"
+echo "13) Install Java 25"
 echo
 
 read -rp "Enter your choice [1-12]: " choice
@@ -241,7 +242,23 @@ case $choice in
                     echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
                     exit 1
                 fi
-                ;;    
+                ;;  
+
+            13)
+                echo "Install Java 25 selected."
+                distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
+            
+                if [ "$distro" = "rhel" ]; then
+                    sudo dnf update -y > /dev/null 2>&1
+                    sudo yum install java-25-openjdk-devel -y > /dev/null
+                elif [ "$distro" = "ubuntu" ]; then
+                    sudo apt-get update -y > /dev/null
+                    sudo apt-get install openjdk-25-jdk -y > /dev/null
+                else
+                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    exit 1
+                fi
+                ;;  
                 
             *)
                 echo "Invalid option. Exiting."

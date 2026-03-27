@@ -267,9 +267,11 @@ case $choice in
                 if [ "$distro" = "rhel" ]; then
                     sudo dnf update -y > /dev/null 2>&1
                     sudo yum install lsof -y > /dev/null
+                    echo "lsof installed on $distro."
                 elif [ "$distro" = "ubuntu" ]; then
                     sudo apt-get update -y > /dev/null
                     sudo apt-get install lsof -y > /dev/null
+                    echo "lsof installed on $distro."
                 else
                     echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
                     exit 1

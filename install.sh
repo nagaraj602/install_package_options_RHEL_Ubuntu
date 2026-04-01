@@ -14,9 +14,11 @@ echo "11) Install Traceroute"
 echo "12) Install nslookup"
 echo "13) Install Java 25"
 echo "14) Install lsof"
+echo "15) Install SonarQube"
+echo "16) Install JFrog"
 echo
 
-read -rp "Enter your choice [1-14]: " choice
+read -rp "Enter your choice [1-16]: " choice
 
 
 cleanup() {
@@ -280,7 +282,16 @@ case $choice in
                     echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
                     exit 1
                 fi
-                ;;                  
+                ;;
+            15)
+                echo "Install SonarQube selected."
+                cd; sudo dnf install git -y > /dev/null 2>&1; git clone https://github.com/nagaraj602/install_sonarqube_RHEL_Ubuntu.git > /dev/null 2>&1; cd install_sonarqube_RHEL_Ubuntu; bash sonarqube.sh                
+                ;;
+                
+            16)
+                echo "Install JFrog selected."
+                cd; sudo dnf install git -y > /dev/null 2>&1; git clone https://github.com/nagaraj602/install_jfrog_RHEL_Ubuntu.git > /dev/null 2>&1; cd install_jfrog_RHEL_Ubuntu; bash jfrog.sh                
+                ;;
             *)
                 echo "Invalid option. Exiting."
                 exit 1

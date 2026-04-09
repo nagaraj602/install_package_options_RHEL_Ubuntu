@@ -16,9 +16,10 @@ echo "13) Install Java 25"
 echo "14) Install lsof"
 echo "15) Install SonarQube"
 echo "16) Install JFrog"
+echo "17) Install AWS Cli"
 echo
 
-read -rp "Enter your choice [1-16]: " choice
+read -rp "Enter your choice [1-17]: " choice
 
 
 cleanup() {
@@ -291,6 +292,30 @@ case $choice in
             16)
                 echo "Install JFrog selected."
                 cd; sudo dnf install git -y > /dev/null 2>&1; git clone https://github.com/nagaraj602/install_jfrog_RHEL_Ubuntu.git > /dev/null 2>&1; cd install_jfrog_RHEL_Ubuntu; bash jfrog.sh                
+                ;;
+
+            17)
+                echo "Install AWS Cli selected."
+                distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
+            
+                if [ "$distro" = "rhel" ]; then
+                    sudo dnf update -y > /dev/null 2>&1
+                    sudo yum install unzip -y > /dev/null
+
+                elif [ "$distro" = "ubuntu" ]; then
+                    sudo apt-get update -y > /dev/null
+                    sudo apt-get install unzip -y > /dev/null
+
+                else
+                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    exit 1
+                fi
+                curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" > /dev/null 2>&1
+                unzip awscliv2.zip > /dev/null 2>&1
+                sudo ./aws/install > /dev/null 2>&1
+                echo 
+                echo "AWS Cli installed on $distro."
+                echo                
                 ;;
             *)
                 echo "Invalid option. Exiting."

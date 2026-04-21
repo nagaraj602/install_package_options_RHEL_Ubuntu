@@ -324,13 +324,13 @@ case $choice in
             
                 if [ "$distro" = "rhel" ]; then
                     sudo dnf update -y > /dev/null 2>&1
-                    sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm > /dev/null
-                    sudo yum update -y > /dev/null
-                    sudo yum install stress -y > /dev/null
+                    sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm > /dev/null 2>&1
+                    sudo yum update -y > /dev/null 2>&1
+                    sudo yum install stress -y > /dev/null 2>&1
 
                 elif [ "$distro" = "ubuntu" ]; then
-                    sudo apt-get update -y > /dev/null
-                    sudo apt-get install stress -y > /dev/null
+                    sudo apt-get update -y > /dev/null 2>&1
+                    sudo apt-get install stress -y > /dev/null 2>&1
 
                 else
                     echo "Unsupported Distribution - Only RHEL and Ubuntu supported."

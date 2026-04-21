@@ -341,10 +341,10 @@ case $choice in
                 echo "Stress command is installed on $distro."
                 echo "############################################"
                 echo "You can use this command to generate stress:"
-                echo -e "\t stress -c 2 -t 3600"
+                echo -e "\t 👉  stress -c 1 -t 3600                  --> For 1 core CPU for 1 hour"
+                echo -e "\t 👉  stress -c 2 -t 3600                  --> For 2 core CPU for 1 hour"
                 echo "############################################"
                 echo
-                echo "👉 Imp: If the cpu core of your instance is 1, then replace 2 with 1"
                 echo                
                 ;;                
                 

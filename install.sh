@@ -17,9 +17,10 @@ echo "14) Install lsof"
 echo "15) Install SonarQube"
 echo "16) Install JFrog"
 echo "17) Install AWS Cli"
+echo "18) Install Stress command"
 echo
 
-read -rp "Enter your choice [1-17]: " choice
+read -rp "Enter your choice [1-18]: " choice
 
 
 cleanup() {
@@ -317,6 +318,36 @@ case $choice in
                 echo "AWS Cli installed on $distro."
                 echo                
                 ;;
+            18)
+                echo "Install Stress selected."
+                distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
+            
+                if [ "$distro" = "rhel" ]; then
+                    sudo dnf update -y > /dev/null 2>&1
+                    sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm > /dev/null
+                    sudo yum update -y > /dev/null
+                    sudo yum install stress -y > /dev/null
+
+                elif [ "$distro" = "ubuntu" ]; then
+                    sudo apt-get update -y > /dev/null
+                    sudo apt-get install stress -y > /dev/null
+
+                else
+                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    exit 1
+                fi
+
+                echo 
+                echo "Stress command is installed on $distro."
+                echo "############################################"
+                echo "You can use this command to generate stress:"
+                echo -e "\t stress -c 2 -t 3600"
+                echo "############################################"
+                echo
+                echo "👉 Imp: If the cpu core of your instance is 1, then replace 2 with 1"
+                echo                
+                ;;                
+                
             *)
                 echo "Invalid option. Exiting."
                 exit 1

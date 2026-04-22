@@ -3,6 +3,7 @@ echo "Do you want to exit from this script? Or install any application?"
 echo "1) Exit"
 echo "2) Install Tomcat"
 echo "3) Install Jenkins"
+echo "3.1) Update the Jenkins port in location config file"
 echo "4) Install Maven"
 echo "5) Install htop"
 echo "6) Install gradle"
@@ -77,7 +78,7 @@ case $choice in
             5)
                 echo "Install htop selected."
                 echo
-                echo "Installing htop on $distro..."
+                echo "Installing htop..."
                 cd;
                 sudo dnf install git -y > /dev/null 2>&1;
                 rm -rf install_htop_RHEL_Ubuntu

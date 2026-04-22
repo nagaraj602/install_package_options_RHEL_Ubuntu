@@ -62,6 +62,32 @@ case $choice in
                 cd ..
                 rm -rf install_jenkins_RHEL_Ubuntu
                 ;;
+
+            3.1)
+                FILE="/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml"
+                echo "Updating Jenkins URL with new IP..."
+
+                NEW_IP=$(curl -s ifconfig.me)                
+                # Extract current URL
+                CURRENT_URL=$(sudo grep -oP '(?<=<jenkinsUrl>).*?(?=</jenkinsUrl>)' "$FILE")                
+                # Extract PORT from current URL
+                PORT=$(echo "$CURRENT_URL" | grep -oP ':\K[0-9]+')                
+                # Safety check
+                if [ -z "$PORT" ]; then
+                    echo "Failed to extract port!"
+                    exit 1
+                fi                
+                # Build new URL
+                NEW_URL="http://${NEW_IP}:${PORT}/"                
+                # Replace old URL with new URL
+                sudo sed -i "s|<jenkinsUrl>.*</jenkinsUrl>|<jenkinsUrl>${NEW_URL}</jenkinsUrl>|" "$FILE"                
+                # Restart Jenkins
+                sudo systemctl restart jenkins
+                
+                echo "----------------------------------------"
+                echo "You can access the Jenkins at: $NEW_URL"
+                echo "----------------------------------------"
+                ;;
         
             4)
                 echo "Install Maven selected."

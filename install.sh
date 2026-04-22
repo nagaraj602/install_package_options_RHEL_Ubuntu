@@ -3,7 +3,8 @@ echo "Do you want to exit from this script? Or install any application?"
 echo "1) Exit"
 echo "2) Install Tomcat"
 echo "3) Install Jenkins"
-echo "3.1) Update the Jenkins port in location config file"
+echo "3.1) Update the Jenkins URL IP in location config file"
+echo "3.2) Update the Jenkins port or print the Jenkins URL"
 echo "4) Install Maven"
 echo "5) Install htop"
 echo "6) Install gradle"
@@ -64,6 +65,7 @@ case $choice in
                 ;;
 
             3.1)
+                
                 FILE="/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml"
                 echo "Updating Jenkins URL with new IP..."
 
@@ -88,6 +90,74 @@ case $choice in
                 echo "You can access the Jenkins at: $NEW_URL"
                 echo "----------------------------------------"
                 ;;
+
+            3.2)
+                FILE="/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml"
+                
+                echo "Choose an option:"
+                echo "1) Show current Jenkins URL"
+                echo "2) Change Jenkins port"
+                read -p "Enter choice [1-2]: " choice
+                
+                case $choice in
+                
+                1)
+                    echo "Fetching current Jenkins URL..."
+                
+                    CURRENT_URL=$(sudo grep -oP '(?<=<jenkinsUrl>).*?(?=</jenkinsUrl>)' "$FILE")
+                
+                    if [ -z "$CURRENT_URL" ]; then
+                        echo "Could not find Jenkins URL!"
+                        exit 1
+                    fi
+                
+                    echo "----------------------------------------"
+                    echo "Current Jenkins URL: $CURRENT_URL"
+                    echo "----------------------------------------"
+                    ;;
+                
+                2)
+                    echo "Enter new Jenkins port:"
+                    read NEW_PORT
+                
+                    if ! [[ "$NEW_PORT" =~ ^[0-9]+$ ]]; then
+                        echo "Invalid port!"
+                        exit 1
+                    fi
+                
+                    echo "Updating Jenkins port..."
+                
+                    # Get Public IP
+                    NEW_IP=$(curl -s ifconfig.me)
+                
+                    # Build new URL
+                    NEW_URL="http://${NEW_IP}:${NEW_PORT}/"
+                
+                    # Update Jenkins config file (system config)
+                    if [ -f /etc/default/jenkins ]; then
+                        sudo sed -i "s/^HTTP_PORT=.*/HTTP_PORT=${NEW_PORT}/" /etc/default/jenkins
+                    elif [ -f /etc/sysconfig/jenkins ]; then
+                        sudo sed -i "s/^JENKINS_PORT=.*/JENKINS_PORT=${NEW_PORT}/" /etc/sysconfig/jenkins
+                    fi
+                
+                    # Update Jenkins Location config XML
+                    sudo sed -i "s|<jenkinsUrl>.*</jenkinsUrl>|<jenkinsUrl>${NEW_URL}</jenkinsUrl>|" "$FILE"
+                
+                    # Restart Jenkins
+                    sudo systemctl restart jenkins
+                
+                    echo "----------------------------------------"
+                    echo "Jenkins port updated successfully!"
+                    echo "Access it at: $NEW_URL"
+                    echo "----------------------------------------"
+                    ;;
+                
+                *)
+                    echo "Invalid option"
+                    ;;
+                
+                esac
+                ;;        
         
             4)
                 echo "Install Maven selected."

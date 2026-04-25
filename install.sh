@@ -20,9 +20,10 @@ echo "15) Install SonarQube"
 echo "16) Install JFrog"
 echo "17) Install AWS Cli"
 echo "18) Install Stress command"
+echo "19) Install wordpress on Ubuntu"
 echo
 
-read -rp "Enter your choice [1-18]: " choice
+read -rp "Enter your choice [1-19]: " choice
 
 
 cleanup() {
@@ -454,7 +455,18 @@ case $choice in
                 echo "###################################################################################"
                 echo
                 echo                
-                ;;                
+                ;;   
+
+            19)
+                echo "Install WordPress selected."
+                cd
+                sudo dnf install git -y > /dev/null 2>&1
+                rm -rf install_wordpress_Ubuntu
+                https://github.com/nagaraj602/install_wordpress_Ubuntu.git > /dev/null 2>&1
+                cd install_wordpress_Ubuntu || exit
+                bash install.sh
+                cd ..
+                rm -rf install_wordpress_Ubuntu
                 
             *)
                 echo "Invalid option. Exiting."

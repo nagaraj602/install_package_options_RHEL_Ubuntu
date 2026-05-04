@@ -21,9 +21,10 @@ echo "16) Install JFrog"
 echo "17) Install AWS Cli"
 echo "18) Install Stress command"
 echo "19) Install wordpress on Ubuntu"
+echo "20) Install Docker on Ubuntu"
 echo
 
-read -rp "Enter your choice [1-19]: " choice
+read -rp "Enter your choice [1-20]: " choice
 
 
 cleanup() {
@@ -467,6 +468,14 @@ case $choice in
                 bash install.sh
                 cd ..
                 rm -rf install_wordpress_Ubuntu
+
+            20) 
+                echo "Install Docker on Ubuntu selected"
+                curl -fsSL https://get.docker.com -o get-docker.sh > /dev/null 2>&1
+                sudo sh ./get-docker.sh  > /dev/null 2>&1
+                sudo gpasswd -a ubuntu docker > /dev/null 2>&1
+                newgrp docker
+
                 
             *)
                 echo "Invalid option. Exiting."

@@ -468,14 +468,15 @@ case $choice in
                 bash install.sh
                 cd ..
                 rm -rf install_wordpress_Ubuntu
-
+                ;;
+                
             20) 
                 echo "Install Docker on Ubuntu selected"
                 curl -fsSL https://get.docker.com -o get-docker.sh > /dev/null 2>&1
                 sudo sh ./get-docker.sh  > /dev/null 2>&1
                 sudo gpasswd -a ubuntu docker > /dev/null 2>&1
                 newgrp docker
-
+                ;;
                 
             *)
                 echo "Invalid option. Exiting."

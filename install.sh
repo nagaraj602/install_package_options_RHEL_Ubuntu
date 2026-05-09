@@ -22,9 +22,10 @@ echo "17) Install AWS Cli"
 echo "18) Install Stress command"
 echo "19) Install wordpress on Ubuntu"
 echo "20) Install Docker on Ubuntu"
+echo "21) Install trivy"
 echo
 
-read -rp "Enter your choice [1-20]: " choice
+read -rp "Enter your choice [1-21]: " choice
 
 
 cleanup() {
@@ -477,6 +478,17 @@ case $choice in
                 git clone https://github.com/nagaraj602/install_docker_RHEL_Ubuntu.git > /dev/null 2>&1; 
                 cd install_docker_RHEL_Ubuntu; 
                 bash docker.sh
+                ;;
+
+            21)
+                echo "Install Trivy selected on Ubuntu selected"
+                sudo apt update && \
+                sudo apt install wget apt-transport-https gnupg lsb-release -y && \
+                sudo mkdir -p /etc/apt/keyrings && \
+                wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /etc/apt/keyrings/trivy.gpg > /dev/null && \
+                echo "deb [signed-by=/etc/apt/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/trivy.list && \
+                sudo apt update && \
+                sudo apt install trivy -y
                 ;;
                 
             *)

@@ -482,12 +482,12 @@ case $choice in
 
             21)
                 echo "Install Trivy selected on Ubuntu selected"
-                sudo apt update && \
-                sudo apt install wget apt-transport-https gnupg lsb-release -y && \
+                sudo apt update > /dev/null 2>&1; 
+                sudo apt install wget apt-transport-https gnupg lsb-release -y > /dev/null 2>&1; 
                 sudo mkdir -p /etc/apt/keyrings && \
                 wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /etc/apt/keyrings/trivy.gpg > /dev/null && \
                 echo "deb [signed-by=/etc/apt/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/trivy.list && \
-                sudo apt update && \
+                sudo apt update > /dev/null 2>&1; 
                 sudo apt install trivy -y
                 ;;
                 

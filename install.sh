@@ -472,11 +472,11 @@ case $choice in
                 
             20) 
                 echo "Install Docker on Ubuntu selected"
-                curl -fsSL https://get.docker.com -o get-docker.sh > /dev/null 2>&1
-                sudo sh ./get-docker.sh  > /dev/null 2>&1
-                sudo gpasswd -a ubuntu docker > /dev/null 2>&1
-                sudo gpasswd -a jenkins docker > /dev/null 2>&1
-                newgrp docker
+                cd; 
+                sudo dnf install git -y > /dev/null 2>&1; 
+                git clone https://github.com/nagaraj602/install_docker_RHEL_Ubuntu.git > /dev/null 2>&1; 
+                cd install_docker_RHEL_Ubuntu; 
+                bash docker.sh
                 ;;
                 
             *)

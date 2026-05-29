@@ -23,9 +23,10 @@ echo "18) Install Stress command"
 echo "19) Install wordpress on Ubuntu"
 echo "20) Install Docker on Ubuntu"
 echo "21) Install trivy"
+echo "22) Visual mode to paste mode in VI editor"
 echo
 
-read -rp "Enter your choice [1-21]: " choice
+read -rp "Enter your choice [1-22]: " choice
 
 
 cleanup() {
@@ -489,6 +490,11 @@ case $choice in
                 echo "deb [signed-by=/etc/apt/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/trivy.list && \
                 sudo apt update > /dev/null 2>&1; 
                 sudo apt install trivy -y
+                ;;
+
+            22)
+                echo "set mouse=" >> ~/.vimrc
+                echo "Done. You can continue working"
                 ;;
                 
             *)

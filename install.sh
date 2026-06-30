@@ -25,7 +25,7 @@ echo "20) Install Docker on Ubuntu"
 echo "21) Install trivy"
 echo "22) Visual mode to paste mode in VI editor"
 echo "23) Terraform"
-echo "24) Ansible"
+echo "24) Ansible On RHEL 9 only"
 echo "25) Helm chart"
 echo
 
@@ -501,9 +501,6 @@ case $choice in
                 ;;
 
             23)
-                
-                ;;
-            24)
                 distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
             
                 if [ "$distro" = "rhel" ]; then
@@ -530,8 +527,22 @@ case $choice in
                 fi
 
                 echo 
-                echo "Stress command is installed on $distro."
+                echo "Terraform command is installed on $distro."
+                terraform --version
                 echo
+                echo
+                echo "Configure aws CLI"
+                aws configure                
+                ;;
+                
+            24)
+                sudo dnf update -y
+                sudo dnf upgrade -y
+                sudo dnf install -y python3 python3-pip
+                sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+                sudo dnf install -y ansible
+                ansible-galaxy collection install amazon.aws
+                ansible --version
                 ;;
 
             25)

@@ -233,7 +233,7 @@ case $choice in
                     sudo dnf update -y > /dev/null 2>&1
                     sudo dnf install python3-pip -y > /dev/null 2>&1
                     echo "Pip package installed on $distro."
-                elif [ "$distro" = "ubuntu" ]; then
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null 2>&1
                     sudo apt-get install python3-pip -y > /dev/null 2>&1
                     echo "Pip package installed on $distro."
@@ -251,7 +251,7 @@ case $choice in
                     sudo dnf install make -y > /dev/null
                     sudo dnf groupinstall "Development Tools" -y > /dev/null
                     echo "Make package installed"
-                elif [ "$distro" = "ubuntu" ]; then
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null
                     sudo apt-get install make -y > /dev/null
                     sudo apt-get install build-essential -y > /dev/null
@@ -295,7 +295,7 @@ case $choice in
                     echo -e "\n --> mysql -u root -p \n \n"
                     
                         
-                elif [ "$distro" = "ubuntu" ]; then
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     echo
                     echo
                     echo "Installing MySQL on $distro..."
@@ -332,7 +332,7 @@ case $choice in
                     sudo dnf install traceroute -y > /dev/null 2>&1
                     echo "Traceroute installed on $distro..."
                     echo "You can run as: traceroute <hostname/IP>"
-                elif [ "$distro" = "ubuntu" ]; then
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null 2>&1
                     sudo apt install traceroute -y > /dev/null 2>&1
                     echo "Traceroute installed on $distro..."
@@ -352,7 +352,7 @@ case $choice in
                     sudo dnf install bind-utils -y > /dev/null 2>&1
                     echo "nslookup installed on $distro..."
                     echo "You can run as: nslookup <hostname/IP/domain>"
-                elif [ "$distro" = "ubuntu" ]; then
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null 2>&1
                     sudo apt install dnsutils -y > /dev/null 2>&1
                     echo "nslookup installed on $distro..."
@@ -370,7 +370,7 @@ case $choice in
                 if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
                     sudo dnf update -y > /dev/null 2>&1
                     sudo yum install java-25-openjdk-devel -y > /dev/null
-                elif [ "$distro" = "ubuntu" ]; then
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null
                     sudo apt-get install openjdk-25-jdk -y > /dev/null
                 else
@@ -388,7 +388,7 @@ case $choice in
                     echo 
                     echo "lsof installed on $distro."
                     echo
-                elif [ "$distro" = "ubuntu" ]; then
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null
                     sudo apt-get install lsof -y > /dev/null
                     echo 
@@ -417,7 +417,7 @@ case $choice in
                     sudo dnf update -y > /dev/null 2>&1
                     sudo yum install unzip -y > /dev/null
 
-                elif [ "$distro" = "ubuntu" ]; then
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null
                     sudo apt-get install unzip -y > /dev/null
 
@@ -442,7 +442,7 @@ case $choice in
                     sudo yum update -y > /dev/null 2>&1
                     sudo yum install stress -y > /dev/null 2>&1
 
-                elif [ "$distro" = "ubuntu" ]; then
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null 2>&1
                     sudo apt-get install stress -y > /dev/null 2>&1
 
@@ -514,7 +514,7 @@ case $choice in
                     sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
                     sudo yum install terraform
                     
-                elif [ "$distro" = "ubuntu" ]; then
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null 2>&1
                     wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
                     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list

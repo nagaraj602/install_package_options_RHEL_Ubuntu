@@ -24,6 +24,9 @@ echo "19) Install wordpress on Ubuntu"
 echo "20) Install Docker on Ubuntu"
 echo "21) Install trivy"
 echo "22) Visual mode to paste mode in VI editor"
+echo "23) Terraform"
+echo "24) Ansible"
+echo "25) Helm chart"
 echo
 
 read -rp "Enter your choice [1-22]: " choice
@@ -226,7 +229,7 @@ case $choice in
                 echo "Install python pip packages selected."
                 python3 --version
                 distro=$(cat /etc/os-release | grep "^ID=" | cut -d "=" -f2 | sed 's/"//g')
-                if [ "$distro" = "rhel" ]; then
+                if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
                     sudo dnf update -y > /dev/null 2>&1
                     sudo dnf install python3-pip -y > /dev/null 2>&1
                     echo "Pip package installed on $distro."
@@ -243,7 +246,7 @@ case $choice in
             9)
                 echo "Install make packages selected."
                 distro=$(cat /etc/os-release | grep "^ID=" | cut -d "=" -f2 | sed 's/"//g')
-                if [ "$distro" = "rhel" ]; then
+                if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
                     sudo dnf update -y > /dev/null
                     sudo dnf install make -y > /dev/null
                     sudo dnf groupinstall "Development Tools" -y > /dev/null
@@ -265,7 +268,7 @@ case $choice in
             
                 distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
             
-                if [ "$distro" = "rhel" ]; then
+                if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
                     echo
                     echo
                     echo "Installing MySQL on $distro..."
@@ -324,7 +327,7 @@ case $choice in
                 echo "Install Traceroute selected."
                 distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
             
-                if [ "$distro" = "rhel" ]; then
+                if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
                     sudo dnf update -y > /dev/null 2>&1
                     sudo dnf install traceroute -y > /dev/null 2>&1
                     echo "Traceroute installed on $distro..."
@@ -344,7 +347,7 @@ case $choice in
                 echo "Install nslookup selected."
                 distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
             
-                if [ "$distro" = "rhel" ]; then
+                if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
                     sudo dnf update -y > /dev/null 2>&1
                     sudo dnf install bind-utils -y > /dev/null 2>&1
                     echo "nslookup installed on $distro..."
@@ -364,7 +367,7 @@ case $choice in
                 echo "Install Java 25 selected."
                 distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
             
-                if [ "$distro" = "rhel" ]; then
+                if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
                     sudo dnf update -y > /dev/null 2>&1
                     sudo yum install java-25-openjdk-devel -y > /dev/null
                 elif [ "$distro" = "ubuntu" ]; then
@@ -379,7 +382,7 @@ case $choice in
                 echo "Install lsof selected."
                 distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
             
-                if [ "$distro" = "rhel" ]; then
+                if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
                     sudo dnf update -y > /dev/null 2>&1
                     sudo yum install lsof -y > /dev/null
                     echo 
@@ -410,7 +413,7 @@ case $choice in
                 echo "Install AWS Cli selected."
                 distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
             
-                if [ "$distro" = "rhel" ]; then
+                if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
                     sudo dnf update -y > /dev/null 2>&1
                     sudo yum install unzip -y > /dev/null
 
@@ -433,7 +436,7 @@ case $choice in
                 echo "Install Stress selected."
                 distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
             
-                if [ "$distro" = "rhel" ]; then
+                if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
                     sudo dnf update -y > /dev/null 2>&1
                     sudo rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm > /dev/null 2>&1
                     sudo yum update -y > /dev/null 2>&1
@@ -495,6 +498,46 @@ case $choice in
             22)
                 echo "set mouse=" >> ~/.vimrc
                 echo "Done. You can continue working"
+                ;;
+
+            23)
+                
+                ;;
+            24)
+                distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
+            
+                if [ "$distro" = "rhel" ]; then
+                    sudo dnf update -y > /dev/null 2>&1
+                    sudo yum install -y yum-utils > /dev/null 2>&1
+                    sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+                    sudo yum -y install terraform
+
+                elif [ "$distro" = "amzn" ]; then
+                    sudo yum install -y yum-utils shadow-utils
+                    sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+                    sudo yum install terraform
+                    
+                elif [ "$distro" = "ubuntu" ]; then
+                    sudo apt-get update -y > /dev/null 2>&1
+                    wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+                    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+                    sudo apt update -y > /dev/null 2>&1
+                    sudo apt install terraform
+
+                else
+                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    exit 1
+                fi
+
+                echo 
+                echo "Stress command is installed on $distro."
+                echo
+                ;;
+
+            25)
+                curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4
+                chmod 700 get_helm.sh
+                ./get_helm.sh
                 ;;
                 
             *)

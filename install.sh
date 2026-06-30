@@ -29,7 +29,7 @@ echo "24) Ansible On RHEL 9 only"
 echo "25) Helm chart"
 echo
 
-read -rp "Enter your choice [1-22]: " choice
+read -rp "Enter your choice [1-25]: " choice
 
 
 cleanup() {

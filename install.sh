@@ -238,7 +238,7 @@ case $choice in
                     sudo apt-get install python3-pip -y > /dev/null 2>&1
                     echo "Pip package installed on $distro."
                 else
-                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
                     exit 1    
                 fi            
                 ;;
@@ -257,7 +257,7 @@ case $choice in
                     sudo apt-get install build-essential -y > /dev/null
                     echo "Make package installed"
                 else
-                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
                     exit 1
                 fi
         
@@ -318,7 +318,7 @@ case $choice in
                     echo -e "\n --> mysql -u root -p \n \n"
             
                 else
-                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
                     exit 1
                 fi
                 ;;
@@ -338,7 +338,7 @@ case $choice in
                     echo "Traceroute installed on $distro..."
                     echo "You can run as: traceroute <hostname/IP>"
                 else
-                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
                     exit 1
                 fi
                 ;;
@@ -358,7 +358,7 @@ case $choice in
                     echo "nslookup installed on $distro..."
                     echo "You can run as: nslookup <hostname/IP/domain>"
                 else
-                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
                     exit 1
                 fi
                 ;;  
@@ -374,7 +374,7 @@ case $choice in
                     sudo apt-get update -y > /dev/null
                     sudo apt-get install openjdk-25-jdk -y > /dev/null
                 else
-                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
                     exit 1
                 fi
                 ;;  
@@ -395,7 +395,7 @@ case $choice in
                     echo "lsof installed on $distro."
                     echo
                 else
-                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
                     exit 1
                 fi
                 ;;
@@ -422,7 +422,7 @@ case $choice in
                     sudo apt-get install unzip -y > /dev/null
 
                 else
-                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
                     exit 1
                 fi
                 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" > /dev/null 2>&1
@@ -447,7 +447,7 @@ case $choice in
                     sudo apt-get install stress -y > /dev/null 2>&1
 
                 else
-                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
                     exit 1
                 fi
 
@@ -522,7 +522,7 @@ case $choice in
                     sudo apt install terraform
 
                 else
-                    echo "Unsupported Distribution - Only RHEL and Ubuntu supported."
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
                     exit 1
                 fi
 
@@ -536,13 +536,44 @@ case $choice in
                 ;;
                 
             24)
-                sudo dnf update -y
-                sudo dnf upgrade -y
-                sudo dnf install -y python3 python3-pip
-                sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-                sudo dnf install -y ansible
+                                distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
+            
+                if [ "$distro" = "rhel" ]; then
+                    sudo dnf update -y
+                    sudo dnf upgrade -y
+                    sudo dnf install -y python3 python3-pip
+                    sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+                    sudo dnf install -y ansible
+                    ansible-galaxy collection install amazon.aws
+                    ansible --version
+
+                elif [ "$distro" = "amzn" ]; then
+                    sudo dnf update -y
+                    sudo dnf upgrade -y
+                    sudo dnf install -y python3 python3-pip
+                    sudo dnf install ansible
+                    ansible-galaxy collection install amazon.aws
+                    ansible --version
+                    
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
+                sudo apt update -y
+                sudo apt install -y python3 python3-pip
+                sudo apt install software-properties-common
+                sudo add-apt-repository --yes --update ppa:ansible/ansible
+                sudo apt install ansible
                 ansible-galaxy collection install amazon.aws
                 ansible --version
+
+                else
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
+                    exit 1
+                fi
+
+                echo 
+                echo "Terraform command is installed on $distro."
+                terraform --version
+                echo
+
                 ;;
 
             25)

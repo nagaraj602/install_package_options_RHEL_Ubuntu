@@ -512,14 +512,14 @@ case $choice in
                 elif [ "$distro" = "amzn" ]; then
                     sudo yum install -y yum-utils shadow-utils
                     sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
-                    sudo yum install terraform
+                    sudo yum install terraform -y
                     
                 elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null 2>&1
                     wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
                     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
                     sudo apt update -y > /dev/null 2>&1
-                    sudo apt install terraform
+                    sudo apt install terraform -y
 
                 else
                     echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
@@ -536,7 +536,7 @@ case $choice in
                 ;;
                 
             24)
-                                distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
+                distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
             
                 if [ "$distro" = "rhel" ]; then
                     sudo dnf update -y
@@ -551,7 +551,7 @@ case $choice in
                     sudo dnf update -y
                     sudo dnf upgrade -y
                     sudo dnf install -y python3 python3-pip
-                    sudo dnf install ansible
+                    sudo dnf install ansible -y
                     ansible-galaxy collection install amazon.aws
                     ansible --version
                     
@@ -560,7 +560,7 @@ case $choice in
                 sudo apt install -y python3 python3-pip
                 sudo apt install software-properties-common
                 sudo add-apt-repository --yes --update ppa:ansible/ansible
-                sudo apt install ansible
+                sudo apt install ansible -y
                 ansible-galaxy collection install amazon.aws
                 ansible --version
 
@@ -570,7 +570,7 @@ case $choice in
                 fi
 
                 echo 
-                echo "Terraform command is installed on $distro."
+                echo "Ansible command is installed on $distro."
                 terraform --version
                 echo
 
@@ -580,6 +580,7 @@ case $choice in
                 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4
                 chmod 700 get_helm.sh
                 ./get_helm.sh
+                echo "Helm chart installed"
                 ;;
                 
             *)

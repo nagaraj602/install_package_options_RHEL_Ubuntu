@@ -57,6 +57,7 @@ case $choice in
                 bash tomcat.sh
                 cd ..
                 rm -rf install_tomcat_RHEL_Ubuntu
+                cd
                 ;;
                 
             3)
@@ -69,6 +70,7 @@ case $choice in
                 bash jenkins.sh
                 cd ..
                 rm -rf install_jenkins_RHEL_Ubuntu
+                cd
                 ;;
 
             3.1)

@@ -27,6 +27,7 @@ echo "22) Visual mode to paste mode in VI editor"
 echo "23) Terraform"
 echo "24) Ansible On RHEL 9 only"
 echo "25) Helm chart"
+echo "26) kubectl & Bash autocompletion
 echo
 
 read -rp "Enter your choice [1-25]: " choice
@@ -583,6 +584,13 @@ case $choice in
                 chmod 700 get_helm.sh
                 ./get_helm.sh
                 echo "Helm chart installed"
+                ;;
+
+            26)
+                git clone https://github.com/nagaraj602/autocompletion-for-bash-and-kubectl.git > /dev/null 2>&1;
+                cd autocompletion-for-bash-and-kubectl;
+                bash script.sh
+                cd
                 ;;
                 
             *)

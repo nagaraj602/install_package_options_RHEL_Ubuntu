@@ -27,7 +27,7 @@ echo "22) Visual mode to paste mode in VI editor"
 echo "23) Terraform"
 echo "24) Ansible On RHEL 9 only"
 echo "25) Helm chart"
-echo "26) kubectl & Bash autocompletion
+echo "26) kubectl & Bash autocompletion"
 echo
 
 read -rp "Enter your choice [1-25]: " choice

@@ -590,7 +590,7 @@ case $choice in
                 git clone https://github.com/nagaraj602/autocompletion-for-bash-and-kubectl.git > /dev/null 2>&1;
                 cd autocompletion-for-bash-and-kubectl;
                 source ./script.sh
-                cd
+                source ~/.bashrc
                 ;;
                 
             *)

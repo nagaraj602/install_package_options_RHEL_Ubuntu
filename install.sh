@@ -625,7 +625,7 @@ case $choice in
                 # 1. Download the latest stable binary
                 echo "Installing kubectl..."
                 # 1. Download the file
-                curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+                curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" > /dev/null 2>&1
                 
                 # 2. Install it
                 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl

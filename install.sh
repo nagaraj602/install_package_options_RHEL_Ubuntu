@@ -31,7 +31,7 @@ echo "26) kubectl & Bash autocompletion"
 echo "27) Installing eksctl and kubectl on linux"
 echo
 
-read -rp "Enter your choice [1-25]: " choice
+read -rp "Enter your choice [1-27]: " choice
 
 
 cleanup() {

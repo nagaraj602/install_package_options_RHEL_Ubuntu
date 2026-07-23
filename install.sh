@@ -600,11 +600,11 @@ case $choice in
             
                 if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
                     sudo dnf update -y > /dev/null 2>&1   
-                    sudo dnf install -y curl tar
+                    sudo dnf install -y curl tar > /dev/null 2>&1
 
                 elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null 2>&1
-                    sudo apt-get install -y curl tar
+                    sudo apt-get install -y curl tar > /dev/null 2>&1
 
                 else
                     echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
@@ -624,10 +624,12 @@ case $choice in
                     
                 # 1. Download the latest stable binary
                 echo "Installing kubectl..."
-                curl -LO "https://k8s.io(curl -L -s https://k8s.io)/bin/linux/amd64/kubectl"
+                # 1. Download the file
+                curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
                 
-                # 2. Install the binary with execution permissions
+                # 2. Install it
                 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
                 
                 # 3. Verify the installation
                 kubectl version --client

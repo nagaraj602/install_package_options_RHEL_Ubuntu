@@ -28,6 +28,7 @@ echo "23) Terraform"
 echo "24) Ansible On RHEL 9 only"
 echo "25) Helm chart"
 echo "26) kubectl & Bash autocompletion"
+echo "27) Installing eksctl and kubectl on linux
 echo
 
 read -rp "Enter your choice [1-25]: " choice
@@ -592,6 +593,52 @@ case $choice in
                 source ./script.sh
                 source ~/.bashrc
                 ;;
+
+            27)
+                echo "Install eksctl and kubectl selected."
+                distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
+            
+                if [ "$distro" = "rhel" ] || [ "$distro" = "amzn" ]; then
+                    sudo dnf update -y > /dev/null 2>&1   
+                    sudo dnf install -y curl tar
+
+                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
+                    sudo apt-get update -y > /dev/null 2>&1
+                    sudo apt-get install -y curl tar
+
+                else
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
+                    exit 1
+                fi
+
+                # 1. Download and extract the latest binary of eksctl
+                echo "Installing eksctl..."
+                curl --silent --location "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+                
+                # 2. Move the binary to /usr/local/bin
+                sudo mv /tmp/eksctl /usr/local/bin
+                
+                # 3. Verify the installation
+                eksctl version
+
+                    
+                # 1. Download the latest stable binary
+                echo "Installing kubectl..."
+                curl -LO "https://k8s.io(curl -L -s https://k8s.io)/bin/linux/amd64/kubectl"
+                
+                # 2. Install the binary with execution permissions
+                sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+                
+                # 3. Verify the installation
+                kubectl version --client
+
+
+                echo 
+                echo "eksctl and kubectl command is installed on $distro."
+                echo
+                echo
+                echo                
+                ;;   
                 
             *)
                 echo "Invalid option. Exiting."

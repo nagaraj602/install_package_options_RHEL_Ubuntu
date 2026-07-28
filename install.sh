@@ -510,20 +510,20 @@ case $choice in
                 if [ "$distro" = "rhel" ]; then
                     sudo dnf update -y > /dev/null 2>&1
                     sudo yum install -y yum-utils > /dev/null 2>&1
-                    sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-                    sudo yum -y install terraform
+                    sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo > /dev/null 2>&1
+                    sudo yum -y install terraform > /dev/null 2>&1
 
                 elif [ "$distro" = "amzn" ]; then
                     sudo yum install -y yum-utils shadow-utils
-                    sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
-                    sudo yum install terraform -y
+                    sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo > /dev/null 2>&1
+                    sudo yum install terraform -y > /dev/null 2>&1
                     
                 elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
                     sudo apt-get update -y > /dev/null 2>&1
                     wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
                     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
                     sudo apt update -y > /dev/null 2>&1
-                    sudo apt install terraform -y
+                    sudo apt install terraform -y > /dev/null 2>&1
 
                 else
                     echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."

@@ -29,6 +29,7 @@ echo "24) Ansible On RHEL 9 only"
 echo "25) Helm chart"
 echo "26) kubectl & Bash autocompletion"
 echo "27) Installing eksctl and kubectl on linux"
+echo "28) Installing Kubernetes bare metal on Ubuntu, Amazon, RHEL"
 echo
 
 read -rp "Enter your choice [1-27]: " choice
@@ -639,6 +640,16 @@ case $choice in
                 echo
                 echo           
                 ;;   
+
+            28)
+                distro=$(cat /etc/os-release | grep "^ID=" | cut -d "=" -f2 | sed 's/"//g')
+                echo "install Kubernetes Bare metal on $distro selected"
+                git clone https://github.com/nagaraj602/install_kubernetes_bare_metal_RHEL_Ubuntu_amazon_linux.git > /dev/null 2>&1;
+                cd install_kubernetes_bare_metal_RHEL_Ubuntu_amazon_linux;
+                bash deploy.sh
+                echo "To destroy this infra, run this:"
+                echo 
+                echo "bash destroy.sh"
                 
             *)
                 echo "Invalid option. Exiting."

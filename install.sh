@@ -575,7 +575,7 @@ case $choice in
 
                 echo 
                 echo "Ansible command is installed on $distro."
-                terraform --version
+                ansible --version
                 echo
 
                 ;;

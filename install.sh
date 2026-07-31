@@ -543,29 +543,28 @@ case $choice in
                 distro=$(grep "^ID=" /etc/os-release | cut -d "=" -f2 | tr -d '"')
             
                 if [ "$distro" = "rhel" ]; then
-                    sudo dnf update -y
-                    sudo dnf upgrade -y
-                    sudo dnf install -y python3 python3-pip
-                    sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-                    sudo dnf install -y ansible
-                    ansible-galaxy collection install amazon.aws
+                    sudo dnf update -y > /dev/null 2>&1
+                    sudo dnf upgrade -y > /dev/null 2>&1
+                    sudo dnf install -y python3 python3-pip > /dev/null 2>&1
+                    sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm > /dev/null 2>&1
+                    sudo dnf install -y ansible > /dev/null 2>&1
+                    ansible-galaxy collection install amazon.aws > /dev/null 2>&1
                     ansible --version
 
                 elif [ "$distro" = "amzn" ]; then
-                    sudo dnf update -y
-                    sudo dnf upgrade -y
-                    sudo dnf install -y python3 python3-pip
-                    sudo dnf install ansible -y
-                    ansible-galaxy collection install amazon.aws
+                    sudo dnf update -y > /dev/null 2>&1
+                    sudo dnf upgrade -y > /dev/null 2>&1
+                    sudo dnf install -y python3 python3-pip > /dev/null 2>&1
+                    sudo dnf install ansible -y > /dev/null 2>&1
+                    ansible-galaxy collection install amazon.aws > /dev/null 2>&1
                     ansible --version
                     
-                elif [ "$distro" = "ubuntu" ] || [  "$distro" = "debian" ]; then
-                sudo apt update -y
-                sudo apt install -y python3 python3-pip
-                sudo apt install software-properties-common
-                sudo add-apt-repository --yes --update ppa:ansible/ansible
-                sudo apt install ansible -y
-                ansible-galaxy collection install amazon.aws
+                elif [ "$distro" = "ubuntu" ]; then
+                sudo apt update > /dev/null 2>&1
+                sudo apt upgrade -y > /dev/null 2>&1
+                sudo apt install -y python3 python3-pip ansible > /dev/null 2>&1
+                python3 -m pip install --user boto3 botocore > /dev/null 2>&1
+                ansible-galaxy collection install amazon.aws > /dev/null 2>&1
                 ansible --version
 
                 else

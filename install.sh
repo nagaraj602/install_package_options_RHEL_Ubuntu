@@ -654,7 +654,10 @@ case $choice in
                 ;;
 
             29)
-                
+                echo "Installing Prometheus and Grafana..."
+                git clone https://github.com/nagaraj602/Install_Prometheus_and_Grafana_Seperately.git > /dev/null 2>&1;
+                cd Install_Prometheus_and_Grafana_Seperately
+                bash script.sh
                 ;;
                 
             *)

@@ -31,9 +31,11 @@ echo "26) kubectl & Bash autocompletion"
 echo "27) Install eksctl and kubectl on linux for EKS"
 echo "28) Install Bare Metal Kubernetes on Ubuntu, Amazon or RHEL"
 echo "29) Install Prometheus and Grafana Seperately"
+echo "30) Install Sidorea App on Ubuntu"
+echo "31)     "
 echo
 
-read -rp "Enter your choice [1-29]: " choice
+read -rp "Enter your choice [1-31]: " choice
 
 
 cleanup() {
@@ -47,7 +49,6 @@ trap cleanup EXIT INT TERM
 case $choice in
             1)
                 echo "Exiting script..."
-                cd
                 exit 0
                 ;;
         
@@ -61,7 +62,6 @@ case $choice in
                 bash tomcat.sh
                 cd ..
                 rm -rf install_tomcat_RHEL_Ubuntu
-                cd
                 ;;
                 
             3)
@@ -407,12 +407,22 @@ case $choice in
                 ;;
             15)
                 echo "Install SonarQube selected."
-                cd; sudo dnf install git -y > /dev/null 2>&1; git clone https://github.com/nagaraj602/install_sonarqube_RHEL_Ubuntu.git > /dev/null 2>&1; cd install_sonarqube_RHEL_Ubuntu; bash sonarqube.sh                
+                cd; sudo dnf install git -y > /dev/null 2>&1; 
+                git clone https://github.com/nagaraj602/install_sonarqube_RHEL_Ubuntu.git > /dev/null 2>&1; 
+                cd install_sonarqube_RHEL_Ubuntu; 
+                bash sonarqube.sh    
+                cd ..
+                rm -rf install_sonarqube_RHEL_Ubuntu
                 ;;
                 
             16)
                 echo "Install JFrog selected."
-                cd; sudo dnf install git -y > /dev/null 2>&1; git clone https://github.com/nagaraj602/install_jfrog_RHEL_Ubuntu.git > /dev/null 2>&1; cd install_jfrog_RHEL_Ubuntu; bash jfrog.sh                
+                cd; sudo dnf install git -y > /dev/null 2>&1; 
+                git clone https://github.com/nagaraj602/install_jfrog_RHEL_Ubuntu.git > /dev/null 2>&1; 
+                cd install_jfrog_RHEL_Ubuntu; 
+                bash jfrog.sh         
+                cd ..
+                rm -rf install_jfrog_RHEL_Ubuntu
                 ;;
 
             17)
@@ -488,6 +498,8 @@ case $choice in
                 git clone https://github.com/nagaraj602/install_docker_RHEL_Ubuntu.git > /dev/null 2>&1; 
                 cd install_docker_RHEL_Ubuntu; 
                 bash docker.sh
+                cd ..
+                rm -rf install_docker_RHEL_Ubuntu
                 ;;
 
             21)
@@ -591,8 +603,9 @@ case $choice in
             26)
                 git clone https://github.com/nagaraj602/autocompletion-for-bash-and-kubectl.git > /dev/null 2>&1;
                 cd autocompletion-for-bash-and-kubectl;
-                source ./script.sh
-                source ~/.bashrc
+                bash script.sh
+                cd ..
+                rm -rf autocompletion-for-bash-and-kubectl
                 ;;
 
             27)
@@ -651,6 +664,10 @@ case $choice in
                 echo "To destroy this infra, run this:"
                 echo 
                 echo "bash destroy.sh"
+
+                # Don't Add below lines as the setup will loose access to destroy the infra.
+                # cd ../..       
+                # rm -rf install_bare_metal_kubernetes_on_RHEL_Ubuntu_Amazon_Distros
                 ;;
 
             29)
@@ -658,6 +675,24 @@ case $choice in
                 git clone https://github.com/nagaraj602/Install_Prometheus_and_Grafana_Seperately.git > /dev/null 2>&1;
                 cd Install_Prometheus_and_Grafana_Seperately;
                 bash script.sh
+                cd ..
+                rm -rf Install_Prometheus_and_Grafana_Seperately
+                ;;
+
+            30)
+                echo "Setting up Sidorea App with 3-tier Architecture"
+                git clone https://github.com/nagaraj602/sidorea-shop-CIDR-planner-SSH-terminal-ec2-launch-manager.git
+                cd sidorea-shop-CIDR-planner-SSH-terminal-ec2-launch-manager/3-tier-architecture-with-postgres-db-with-login-page
+                bash script.sh                
+
+                # Don't Add below lines as the setup will loose all the data needed for the app to be up and running.
+                # cd ../..
+                # rm -rf sidorea-shop-CIDR-planner-SSH-terminal-ec2-launch-manager/3-tier-architecture-with-postgres-db-with-login-page
+                ;;
+
+            31)
+
+
                 ;;
                 
             *)

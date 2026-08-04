@@ -645,7 +645,7 @@ case $choice in
                 distro=$(cat /etc/os-release | grep "^ID=" | cut -d "=" -f2 | sed 's/"//g')
                 echo "install Kubernetes Bare metal on $distro selected"
                 git clone https://github.com/nagaraj602/install_kubernetes_bare_metal_RHEL_Ubuntu_amazon_linux.git > /dev/null 2>&1;
-                cd install_kubernetes_bare_metal_RHEL_Ubuntu_amazon_linux;
+                cd install_kubernetes_bare_metal_RHEL_Ubuntu_amazon_linux/without_creating_VPC;
                 bash deploy.sh
                 echo "To destroy this infra, run this:"
                 echo 

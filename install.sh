@@ -28,11 +28,12 @@ echo "23) Terraform"
 echo "24) Ansible On RHEL 9 only"
 echo "25) Helm chart"
 echo "26) kubectl & Bash autocompletion"
-echo "27) Installing eksctl and kubectl on linux"
-echo "28) Installing Kubernetes bare metal on Ubuntu, Amazon, RHEL"
+echo "27) Install eksctl and kubectl on linux for EKS"
+echo "28) Install Bare Metal Kubernetes on Ubuntu, Amazon or RHEL"
+echo "29) Install Prometheus and Grafana Seperately
 echo
 
-read -rp "Enter your choice [1-27]: " choice
+read -rp "Enter your choice [1-29]: " choice
 
 
 cleanup() {
@@ -643,13 +644,17 @@ case $choice in
 
             28)
                 distro=$(cat /etc/os-release | grep "^ID=" | cut -d "=" -f2 | sed 's/"//g')
-                echo "install Kubernetes Bare metal on $distro selected"
-                git clone https://github.com/nagaraj602/install_kubernetes_bare_metal_RHEL_Ubuntu_amazon_linux.git > /dev/null 2>&1;
-                cd install_kubernetes_bare_metal_RHEL_Ubuntu_amazon_linux/without_creating_VPC;
+                echo "Install Bare Metal Kubernetes on $distro selected"
+                git clone https://github.com/nagaraj602/install_bare_metal_kubernetes_on_RHEL_Ubuntu_Amazon_Distros.git > /dev/null 2>&1;
+                cd install_bare_metal_kubernetes_on_RHEL_Ubuntu_Amazon_Distros/without_creating_VPC;
                 bash deploy.sh
                 echo "To destroy this infra, run this:"
                 echo 
                 echo "bash destroy.sh"
+                ;;
+
+            29)
+                
                 ;;
                 
             *)

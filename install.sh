@@ -650,6 +650,7 @@ case $choice in
                 echo "To destroy this infra, run this:"
                 echo 
                 echo "bash destroy.sh"
+                ;;
                 
             *)
                 echo "Invalid option. Exiting."

@@ -30,7 +30,7 @@ echo "25) Helm chart"
 echo "26) kubectl & Bash autocompletion"
 echo "27) Install eksctl and kubectl on linux for EKS"
 echo "28) Install Bare Metal Kubernetes on Ubuntu, Amazon or RHEL"
-echo "29) Install Prometheus and Grafana Seperately
+echo "29) Install Prometheus and Grafana Seperately"
 echo
 
 read -rp "Enter your choice [1-29]: " choice

@@ -663,11 +663,7 @@ case $choice in
                 bash deploy.sh
                 echo "To destroy this infra, run this:"
                 echo 
-                echo "bash destroy.sh"
-
-                # Don't Add below lines as the setup will loose access to destroy the infra.
-                # cd ../..       
-                # rm -rf install_bare_metal_kubernetes_on_RHEL_Ubuntu_Amazon_Distros
+                echo "bash destroy.sh"               
                 ;;
 
             29)

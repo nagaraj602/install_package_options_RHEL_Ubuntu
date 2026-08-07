@@ -31,18 +31,11 @@ echo "26) kubectl & Bash autocompletion"
 echo "27) Install eksctl and kubectl on linux for EKS"
 echo "28) Install Bare Metal Kubernetes on Ubuntu, Amazon or RHEL"
 echo "29) Install Prometheus and Grafana Seperately"
-echo "30) "
+echo "30) Sidorea App setup"
 echo "31)     "
 echo
 
 read -rp "Enter your choice [1-31]: " choice
-
-
-cleanup() {
-    cd
-    find "$HOME" -maxdepth 1 -type d -name "install_*_RHEL_Ubuntu" -exec rm -rf {} +
-}
-trap cleanup EXIT INT TERM
 
 
 
@@ -601,6 +594,7 @@ case $choice in
                 ;;
 
             26)
+                cd
                 git clone https://github.com/nagaraj602/autocompletion-for-bash-and-kubectl.git > /dev/null 2>&1;
                 cd autocompletion-for-bash-and-kubectl;
                 bash script.sh
@@ -657,6 +651,7 @@ case $choice in
 
             28)
                 distro=$(cat /etc/os-release | grep "^ID=" | cut -d "=" -f2 | sed 's/"//g')
+                cd
                 echo "Install Bare Metal Kubernetes on $distro selected"
                 git clone https://github.com/nagaraj602/install_bare_metal_kubernetes_on_RHEL_Ubuntu_Amazon_Distros.git > /dev/null 2>&1;
                 cd install_bare_metal_kubernetes_on_RHEL_Ubuntu_Amazon_Distros/without_creating_VPC;
@@ -668,6 +663,7 @@ case $choice in
 
             29)
                 echo "Installing Prometheus and Grafana..."
+                cd
                 git clone https://github.com/nagaraj602/Install_Prometheus_and_Grafana_Seperately.git > /dev/null 2>&1;
                 cd Install_Prometheus_and_Grafana_Seperately;
                 bash script.sh
@@ -676,7 +672,11 @@ case $choice in
                 ;;
 
             30)
-                                              
+                echo "Sidorea App setup is selected"
+                cd
+                git clone https://github.com/nagaraj602/sidorea-shop-CIDR-planner-SSH-terminal-ec2-launch-manager.git > /dev/null 2>&1;
+                cd sidorea-shop-CIDR-planner-SSH-terminal-ec2-launch-manager/3-tier-architecture-with-postgres-db-with-login-page
+                bash script.sh
                 ;;
 
             31)

@@ -683,11 +683,7 @@ case $choice in
                 echo "Setting up Sidorea App with 3-tier Architecture"
                 git clone https://github.com/nagaraj602/sidorea-shop-CIDR-planner-SSH-terminal-ec2-launch-manager.git > /dev/null 2>&1;
                 cd sidorea-shop-CIDR-planner-SSH-terminal-ec2-launch-manager/3-tier-architecture-with-postgres-db-with-login-page
-                bash script.sh                
-
-                # Don't Add below lines as the setup will loose all the data needed for the app to be up and running.
-                # cd ../..
-                # rm -rf sidorea-shop-CIDR-planner-SSH-terminal-ec2-launch-manager/3-tier-architecture-with-postgres-db-with-login-page
+                bash script.sh                                
                 ;;
 
             31)

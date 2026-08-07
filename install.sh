@@ -31,7 +31,7 @@ echo "26) kubectl & Bash autocompletion"
 echo "27) Install eksctl and kubectl on linux for EKS"
 echo "28) Install Bare Metal Kubernetes on Ubuntu, Amazon or RHEL"
 echo "29) Install Prometheus and Grafana Seperately"
-echo "30) Install Sidorea App on Ubuntu"
+echo "30) "
 echo "31)     "
 echo
 
@@ -680,10 +680,7 @@ case $choice in
                 ;;
 
             30)
-                echo "Setting up Sidorea App with 3-tier Architecture"
-                git clone https://github.com/nagaraj602/sidorea-shop-CIDR-planner-SSH-terminal-ec2-launch-manager.git > /dev/null 2>&1;
-                cd sidorea-shop-CIDR-planner-SSH-terminal-ec2-launch-manager/3-tier-architecture-with-postgres-db-with-login-page
-                bash script.sh                                
+                                              
                 ;;
 
             31)

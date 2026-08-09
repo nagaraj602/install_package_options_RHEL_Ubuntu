@@ -697,7 +697,7 @@ case $choice in
                 sudo apt install ./code_1.132.0-1785860022_amd64.deb -y  > /dev/null 2>&1
                 sudo apt install wget gpg && wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
                 echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
-                sudo apt update && sudo apt install code  > /dev/null 2>&1
+                sudo apt update && sudo apt install code -y  > /dev/null 2>&1
                 code tunnel             
                 ;;
                 

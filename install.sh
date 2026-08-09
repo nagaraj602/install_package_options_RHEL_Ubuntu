@@ -32,10 +32,12 @@ echo "27) Install eksctl and kubectl on linux for EKS"
 echo "28) Install Bare Metal Kubernetes on Ubuntu, Amazon or RHEL"
 echo "29) Install Prometheus and Grafana Seperately"
 echo "30) Sidorea App setup"
-echo "31)     "
+echo "31) Install netstat by net-tools"
+echo "32) VS Code in your server to access via browser in Ubuntu"
+echo "33) "
 echo
 
-read -rp "Enter your choice [1-31]: " choice
+read -rp "Enter your choice [1-33]: " choice
 
 
 
@@ -680,8 +682,31 @@ case $choice in
                 ;;
 
             31)
+                echo "Install Netstat selected"
+                sudo apt update -y > /dev/null 2>&1;
+                sudo apt install net-tools -y > /dev/null 2>&1;
+                echo "Netstat installed!"
+                sudo netstat -tulnp
+                ;;
+
+            32)
+                echo "Vscode in server to access in browser selected"
+                sudo apt-get update -y > /dev/null 2>&1
+                sudo apt-get install -y wget curl tar > /dev/null 2>&1
+                wget https://vscode.download.prss.microsoft.com/dbazure/download/stable/df53daabb18cd157bdb08c7f01c34df936cf12f4/code_1.132.0-1785860022_amd64.deb > /dev/null 2>&1                    
+                sudo apt install ./code_1.132.0-1785860022_amd64.deb -y  > /dev/null 2>&1
+                sudo apt install wget gpg && wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft.gpg
+                echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
+                sudo apt update && sudo apt install code  > /dev/null 2>&1
+                code tunnel
 
 
+                else
+                    echo "Unsupported Distribution - Only RHEL/Amazon Linux and Ubuntu/Debian supported."
+                    exit 1
+                fi
+
+                
                 ;;
                 
             *)

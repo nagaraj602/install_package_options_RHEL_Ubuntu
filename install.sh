@@ -34,7 +34,8 @@ echo "29) Install Prometheus and Grafana Seperately"
 echo "30) Sidorea App setup"
 echo "31) Install netstat by net-tools"
 echo "32) VS Code in your server to access via browser in Ubuntu"
-echo "33) "
+echo "33) Media playback App"
+echo "34) Wedding App"
 echo
 
 read -rp "Enter your choice [1-33]: " choice
@@ -699,6 +700,30 @@ case $choice in
                 echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
                 sudo apt update && sudo apt install code -y
                 code tunnel             
+                ;;
+
+            33)
+                echo "Media Playlist app installation selected"
+                #!/bin/bash
+                # Run this script to bring up your app in your current device              
+                FULL_IMAGE_NAME="sidorea/my-media-app:v1"                     
+                docker rm -f media-playlist
+                docker run --name media-playlist --restart unless-stopped -d -p 8080:80 $FULL_IMAGE_NAME
+                echo "Done! App URL: http://localhost:8080"
+                ;;
+                
+            34)
+                echo "Wedding app installation selected"
+                IMAGE="nagarajkamath602/wedding-app:v1"
+                echo "Stopping any existing container..."
+                docker rm -f wedding-showcase 2>/dev/null      
+                echo "Running container with image: $IMAGE"            
+                docker run -d \              
+                -p 8082:8080 \
+                -p 5081:8081 \
+                --name wedding-showcase \
+                $IMAGE              
+                echo "Done! Public UI: http://localhost:8082 | Admin UI: http://localhost:5081"
                 ;;
                 
             *)

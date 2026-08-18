@@ -708,8 +708,8 @@ case $choice in
                 # Run this script to bring up your app in your current device              
                 FULL_IMAGE_NAME="sidorea/my-media-app:v1"                     
                 docker rm -f media-playlist
-                docker run --name media-playlist --restart unless-stopped -d -p 8080:80 $FULL_IMAGE_NAME
-                echo "Done! App URL: http://localhost:8080"
+                docker run --name media-playlist --restart unless-stopped -d -p 8083:80 $FULL_IMAGE_NAME
+                echo "Done! App URL: http://localhost:8083"
                 ;;
                 
             34)

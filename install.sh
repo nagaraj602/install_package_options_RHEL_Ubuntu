@@ -709,7 +709,7 @@ case $choice in
                 FULL_IMAGE_NAME="sidorea/my-media-app:v1"                     
                 docker rm -f media-playlist
                 docker run --name media-playlist --restart unless-stopped -d -p 8083:80 $FULL_IMAGE_NAME
-                echo "Done! App URL: http://localhost:8083"
+                echo "Done! App URL: http://$(curl -s ifconfig.me):8083"
                 ;;
                 
             34)
@@ -723,7 +723,7 @@ case $choice in
                 -p 5081:8081 \
                 --name wedding-showcase \
                 $IMAGE              
-                echo "Done! Public UI: http://localhost:8082 | Admin UI: http://localhost:5081"
+                echo "Done! Public UI: http://$(curl -s ifconfig.me):8082 | Admin UI: http://$(curl -s ifconfig.me):5081"
                 ;;
                 
             *)

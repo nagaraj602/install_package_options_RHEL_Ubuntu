@@ -731,18 +731,17 @@ case $choice in
             35)
                 echo "Displaying Ssh config file for VScode"
                 echo "Host *
-                        ServerAliveInterval 60
-                        ServerAliveCountMax 3
+                  ServerAliveInterval 60
+                  ServerAliveCountMax 3
+                Host Ubuntu App
+                  HostName 3.90.254.102
+                  User ubuntu
+                  IdentityFile ~/.ssh/nagaraj-srinivas.pem
                         
-            Host Ubuntu App
-                          HostName 3.90.254.102
-                          User ubuntu
-                          IdentityFile ~/.ssh/nagaraj-srinivas.pem
-                        
-            Host Ubuntu Monitoring
-                          HostName 54.236.223.116
-                          User ubuntu
-                          IdentityFile ~/.ssh/nagaraj-srinivas.pem"
+                Host Ubuntu Monitoring
+                  HostName 54.236.223.116
+                  User ubuntu
+                  IdentityFile ~/.ssh/nagaraj-srinivas.pem"
                 ;;
                 
                 

@@ -729,7 +729,10 @@ case $choice in
                 echo "Done! Public UI: http://$(curl -s ifconfig.me):8082 | Admin UI: http://$(curl -s ifconfig.me):5081"
                 ;;
             35)
-                echo "Displaying Ssh config file for VScode"
+                echo "Displaying Ssh config file for VScode:"
+                echo
+                echo
+                echo "!===============================================!"  
                 echo "Host *
   ServerAliveInterval 60
   ServerAliveCountMax 3
@@ -742,6 +745,7 @@ Host Ubuntu Monitoring
   HostName 54.236.223.116
   User ubuntu
   IdentityFile ~/.ssh/nagaraj-srinivas.pem"
+echo "!===============================================!"  
                 ;;
                 
                 

@@ -732,7 +732,7 @@ case $choice in
                 echo "Displaying Ssh config file for VScode:"
                 echo
                 echo
-                echo -e "\t\t*******"
+                echo -e "\t\t\t*******"
                 echo "!=============================================!"  
                 echo "Host *
   ServerAliveInterval 60
@@ -747,7 +747,7 @@ Host Ubuntu Monitoring
   User ubuntu
   IdentityFile ~/.ssh/nagaraj-srinivas.pem"
 echo "!=============================================!"  
-echo -e "\t\t*******"
+echo -e "\t\t\t*******"
                 ;;
                 
                 

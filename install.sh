@@ -36,6 +36,7 @@ echo "31) Install netstat by net-tools"
 echo "32) VS Code in your server to access via browser in Ubuntu"
 echo "33) Media playback App"
 echo "34) Wedding App"
+echo "35) Display SSH config file of VS-code" 
 echo
 
 read -rp "Enter your choice [1-33]: " choice
@@ -704,11 +705,13 @@ case $choice in
 
             33)
                 echo "Media Playlist app installation selected"
-                #!/bin/bash
-                # Run this script to bring up your app in your current device              
-                FULL_IMAGE_NAME="sidorea/my-media-app:v1"                     
-                docker rm -f media-playlist
-                docker run --name media-playlist --restart unless-stopped -d -p 8083:80 $FULL_IMAGE_NAME
+                sudo fallocate -l 2G /swapfile; sudo chmod 600 /swapfile; 
+                sudo mkswap /swapfile; sudo swapon / swapfile; echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab; 
+                cd; sudo apt update -y > /dev/null 2>&1; sudo apt install git -y > /dev/null 2>&1; 
+                git clone https://github.com/nagaraj602/install_docker_RHEL_Ubuntu.git > /dev/null 2>&1; 
+                cd install_docker_RHEL_Ubuntu; bash docker.sh; cd; rm -rf install_docker_RHEL_Ubuntu; 
+                sudo docker rm -f media-playlist 2>/dev/null || true; 
+                sudo docker run --name media-playlist --restart unless-stopped -d -p 8083:80 sidorea/my-media-app:v2
                 echo "Done! App URL: http://$(curl -s ifconfig.me):8083"
                 ;;
                 
@@ -725,6 +728,23 @@ case $choice in
                 $IMAGE              
                 echo "Done! Public UI: http://$(curl -s ifconfig.me):8082 | Admin UI: http://$(curl -s ifconfig.me):5081"
                 ;;
+            35)
+                echo "Displaying Ssh config file for VScode"
+                echo "Host *
+                        ServerAliveInterval 60
+                        ServerAliveCountMax 3
+                        
+            Host Ubuntu App
+                          HostName 3.90.254.102
+                          User ubuntu
+                          IdentityFile ~/.ssh/nagaraj-srinivas.pem
+                        
+            Host Ubuntu Monitoring
+                          HostName 54.236.223.116
+                          User ubuntu
+                          IdentityFile ~/.ssh/nagaraj-srinivas.pem"
+                ;;
+                
                 
             *)
                 echo "Invalid option. Exiting."

@@ -39,7 +39,7 @@ echo "34) Wedding App"
 echo "35) Display SSH config file of VS-code" 
 echo
 
-read -rp "Enter your choice [1-33]: " choice
+read -rp "Enter your choice [1-35]: " choice
 
 
 
@@ -732,8 +732,8 @@ case $choice in
                 echo "Displaying Ssh config file for VScode:"
                 echo
                 echo
-                echo "!===============================================!"  
-                echo -e "\t Host *
+                echo "!=============================================!"  
+                echo "Host *
   ServerAliveInterval 60
   ServerAliveCountMax 3
 Host Ubuntu App
@@ -745,7 +745,7 @@ Host Ubuntu Monitoring
   HostName 54.236.223.116
   User ubuntu
   IdentityFile ~/.ssh/nagaraj-srinivas.pem"
-echo "!===============================================!"  
+echo "!=============================================!"  
                 ;;
                 
                 

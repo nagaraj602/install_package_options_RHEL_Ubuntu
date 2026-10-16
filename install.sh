@@ -733,7 +733,7 @@ case $choice in
                 echo
                 echo
                 echo "!===============================================!"  
-                echo "Host *
+                echo -e "\t Host *
   ServerAliveInterval 60
   ServerAliveCountMax 3
 Host Ubuntu App
